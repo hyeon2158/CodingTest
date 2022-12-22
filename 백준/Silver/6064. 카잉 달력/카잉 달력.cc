@@ -29,14 +29,12 @@ int main(void) {
 	{
 		int M, N, x, y;
 		cin >> M >> N >> x >> y;
-		int a = 0;
 		int b = 0;
 		int c = lcm(M, N);
 		for (size_t i = x; i <= c; i+=M)
 		{
-			a = (i - 1) % M + 1;
 			b = (i - 1) % N + 1;
-			if (a == x && b == y) {
+			if (b == y) {
 				cout << i << '\n';
 				break;
 			}
