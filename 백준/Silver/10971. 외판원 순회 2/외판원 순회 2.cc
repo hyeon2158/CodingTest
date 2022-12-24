@@ -10,9 +10,32 @@ using namespace std;
 int N;
 int cost = 100'000'000;
 vector <vector <int> > city(10, vector<int>(10));
+vector <bool> visit(10);
 
-typedef unsigned long long u;
-int main() {
+void DFS(int curr, int cnt, int start, int sum) {
+	if (cnt == N) {
+		if (city[curr][start])
+		{
+			sum += city[curr][start];
+			cost = min(cost, sum);
+		}
+	}
+	else {
+		for (size_t i = 0; i < N; i++)
+		{
+			if (!visit[i] && city[curr][i]) {
+				visit[i] = true;
+				sum += city[curr][i];
+				if (cost > sum)
+				DFS(i, cnt + 1, start, sum);
+				visit[i] = false;
+				sum -= city[curr][i];
+			}
+		}
+	}
+}
+
+int main(void) {
 	ios::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout.tie(NULL);
@@ -25,35 +48,13 @@ int main() {
 			cin >> city[i][j];
 		}
 	}
-	
-	vector<int> a(N);
 
 	for (size_t i = 0; i < N; i++)
 	{
-		a[i] = i;
-	}
-	sort(a.begin(), a.end());
-	
-	do
-	{
-		int sum = 0;
-		int decode = 1;
-		for (size_t i = 0; i < N-1; i++)
-		{
-			if (city[a[i]][a[i + 1]]) sum += city[a[i]][a[i + 1]];
-			else {
-				decode = 0;
-				break;
-			}
-		}
-		if (decode) {
-			if (city[a[N - 1]][a[0]]) {
-				sum += city[a[N - 1]][a[0]];
-				cost = min(cost, sum);
-			}
-		}
-	} while (next_permutation(a.begin(), a.end()));
+		visit[i] = true;
+		DFS(i, 1, i, 0);
+		visit[i] = false;
+	} 
 	cout << cost;
-	
 	return 0;
 }
