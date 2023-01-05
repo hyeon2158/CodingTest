@@ -10,16 +10,18 @@ typedef unsigned long long ong;
 
 int n;
 vector<vector <char> > sign(10, vector<char>(10));
-vector<int> res;
-bool decode = 1;
+//bool decode = 1;
 
 //default cnt = 0, curr = null, sum = 0, num = i
 void DFS(int cnt, vector<int> curr, vector<int> sum, int num) { 
-	if (!decode) return;
+	//if (!decode) return;
 	if (cnt == n) {
-		res = curr;
-		decode = 0;
-		return;
+		//decode = 0;
+        for (size_t i = 0; i < n; i++)
+	{
+		cout << curr[i] << ' ';
+	}
+		exit(0);
 	}
 	if (sign[cnt][cnt] == '+')
 	{
@@ -76,10 +78,6 @@ int main(void) {
 		vector<int> curr;
 		vector<int> sum(1);
 		DFS(0, curr, sum , i);
-	}
-	for (size_t i = 0; i < n; i++)
-	{
-		cout << res[i] << ' ';
 	}
 	return 0;
 }
