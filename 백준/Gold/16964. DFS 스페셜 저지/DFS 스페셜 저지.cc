@@ -14,7 +14,7 @@ int visit[MAX_SIZE];
 int order[MAX_SIZE];
 vector<int> seq;
 bool isRight;
-int cnt = 0;
+int cnt;
 
 void dfs(int);
 bool cmp(const int&, const int&);
@@ -24,20 +24,19 @@ bool cmp(const int& a, const int& b) {
 }
 
 void dfs(int a) {
-	if (a != seq[cnt]) {
+	cnt++;
+    if (cnt==N) {
 		isRight = 1;
 		return;
 	}
-	visit[a] = 1;
- 	for (size_t i = 0; i < graph[a].size(); i++)
+	visit[a] = cnt;
+	for (size_t i = 0; i < graph[a].size(); i++)
 	{
-		if (visit[graph[a][i]] == 0) {
-			cnt++;
+		if (!visit[graph[a][i]] && order[graph[a][i]] == cnt + 1) {
 			dfs(graph[a][i]);
 		}
 	}
 }
-
 
 int main(void) {
 	ios::sync_with_stdio(false);
@@ -65,10 +64,11 @@ int main(void) {
 	{
 		sort(graph[i].begin(), graph[i].end(), cmp);
 	}
-
-	dfs(0);
-	if (isRight) cout << 0;
-	else cout << 1;
-	
+	if (seq.front() != 0) cout << 0;
+	else {
+		dfs(0);
+		if (isRight) cout << 1;
+		else cout << 0;
+	}
 	return 0;
 }
