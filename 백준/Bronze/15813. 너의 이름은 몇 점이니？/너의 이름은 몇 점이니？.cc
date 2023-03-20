@@ -1,23 +1,20 @@
 #include <iostream>
-#include <vector>
-#include <string>
-#include <algorithm>
 
 using namespace std;
 
 int main(void) {
-	ios::sync_with_stdio(false);
+	ios_base::sync_with_stdio(NULL);
 	cin.tie(NULL);
 	cout.tie(NULL);
-	
-	int P;
-	cin >> P;
-	int score = 0;
-	for (size_t i = 0; i < P; i++)
+	int N;
+	cin >> N;
+	int sum = 0;
+	for (size_t i = 0; i < N; i++)
 	{
-		char ent;
-		cin >> ent;
-		score += ent - 64;
+		char name;
+		cin >> name;
+		sum += name - 'A' + 1;
 	}
-	cout << score;
+	cout << sum;
+	return 0;
 }
